@@ -1,19 +1,15 @@
-import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
+
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import BoardsPage from './pages/BoardsPage';
 import BoardDetailPage from './pages/BoardDetailPage';
-import ProtectedRoute from './components/ProtectedRoute';
+import TemplatesPage from './pages/TemplatesPage';
+import SettingsPage from './pages/SettingsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
-  const { checkAuth } = useAuth();
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
   return (
     <Routes>
       {/* Public Routes */}
@@ -37,9 +33,26 @@ export default function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/templates"
+        element={
+          <ProtectedRoute>
+            <TemplatesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Catch all - redirect to login */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      {/* 404 & Fallback */}
+      <Route path="/404" element={<NotFoundPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

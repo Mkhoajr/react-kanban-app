@@ -16,7 +16,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/', { replace: true});
     }
   }, [user, navigate]);
 
@@ -147,6 +147,24 @@ export default function LoginPage() {
               {isLoading ? 'Logging in...' : 'Log in'}
             </button>
           </form>
+
+          {/* Quick Demo Guest Login */}
+          <div className="mb-6">
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  await login({ email: 'demo@kanban.com', name: 'Demo Guest' });
+                  navigate('/');
+                } catch (err) {
+                  setError('Demo login failed. Please try again.');
+                }
+              }}
+              className="w-full flex items-center justify-center py-2 px-4 border border-blue-200 rounded-md shadow-sm text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 transition-colors"
+            >
+              ⚡ Quick Demo Guest Login
+            </button>
+          </div>
 
           {/* Divider */}
           <div className="relative mb-6">

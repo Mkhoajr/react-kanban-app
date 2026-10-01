@@ -8,7 +8,7 @@ import {
   FiChevronDown
 } from 'react-icons/fi';
 import { FaRegClock } from "react-icons/fa";
-import Header from '../components/layout/Header';
+import Header from '../components/ui/header';
 import { allBoards } from '../data/boardList';
 import { useNavigate } from 'react-router-dom';
 
